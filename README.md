@@ -3,12 +3,12 @@ SimpleGL is a functional abstraction layer on top of OpenGL
 
 ## How to build
 
-`git clone --recursive https://github.com/MaikKlein/SimpleGL.git
+`git clone --recursive https://github.com/MaikKlein/SimpleGL.git`
 
-cd SimpleGL
+`cd SimpleGL`
 
-make deps
+`make deps`
 
-make
+`make`
 
-make examples`
+`make examples`
