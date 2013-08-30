@@ -16,7 +16,7 @@
 SGL	           = ../lib/
 GL-RS          = ../submodules/gl-rs
 GLFW-RS        = ../submodules/glfw-rs/build/glfw
-BUILD_DIR	:= bin
+BUILD_DIR	:= build
 
 
 all: triangle

@@ -1,7 +1,7 @@
 *.o
 *.dylib*
 *.dSYM
-*.bin
+bin
 lib
 gitgnore
 *.tags
