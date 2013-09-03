@@ -24,6 +24,6 @@
 
 pub mod handle;
 pub mod vertex_array;
-pub mod vertex_buffer;
+pub mod buffer;
 pub mod shader;
 pub mod shader_program;

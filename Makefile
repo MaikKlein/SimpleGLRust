@@ -36,5 +36,8 @@ deps:
 	cd ./submodules/glfw-rs/; rustpkg build glfw
 	rustc ./submodules/gl-rs/gl.rs
 
+examples:
+	cd ./examples/; ./make
+
 
 	

@@ -14,9 +14,9 @@ impl VertexArray {
     pub fn bind(&self) {
         gl::BindVertexArray(self.handle.get());
     }
-    pub fn bind_attrib(&self, location: gl::types::GLuint,
+    pub fn bind_attrib<B: ::buffer::Buffer> (&self, location: gl::types::GLuint,
                    count: gl::types::GLint,
-                   buffer: &::vertex_buffer::VertexBuffer) {
+                   buffer: &B) {
         buffer.bind();
         self.bind();
         gl::EnableVertexAttribArray(location);

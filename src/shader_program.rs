@@ -21,6 +21,15 @@ impl ShaderProgram {
             };
         }
     }
+    pub fn set_uniform1f(&self, name: ~str, value: gl::types::GLfloat) {
+        do name.with_c_str |ptr|{
+            unsafe {
+                let location = gl::GetUniformLocation(self.handle.get(), ptr);
+                gl::Uniform1f(location, value);
+            }
+        }
+
+    }
     pub fn new(shaders: &[&::shader::Shader]) -> Result<ShaderProgram,~str>{
         
         let sp = ShaderProgram {handle: ::handle::Handle::new(gl::CreateProgram())};

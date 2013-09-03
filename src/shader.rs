@@ -4,7 +4,7 @@ struct Shader{
     handle: ::handle::Handle
 }
 impl Shader {
-    pub fn new(source: ~str,
+    pub fn new(name: ~str,source: ~str,
            shader_type: gl::types::GLenum) 
            -> Result<Shader,~str> {
         let handle = gl::CreateShader(shader_type);
@@ -25,7 +25,7 @@ impl Shader {
                 gl::GetShaderInfoLog(handle, len, ::std::ptr::null(),
                 ::std::vec::raw::to_ptr(buf) as *gl::types::GLchar);
                 let s :~str= ::std::str::from_bytes(buf);
-                let s = fmt!("\nFILE_NAME failed to compile:\n%?",s);
+                let s = fmt!("\n%? failed to compile:\n%?",name,s);
                 Err(s)
             } 
             else {
@@ -33,25 +33,25 @@ impl Shader {
             }
         }
     }
-    pub fn new_vs(source: ~str) 
+    pub fn new_vs(name: ~str,source: ~str) 
                   -> Result<Shader,~str>{
-        Shader::new(source,gl::VERTEX_SHADER)   
+        Shader::new(name,source,gl::VERTEX_SHADER)   
     }
-    pub fn new_fs(source: ~str) 
+    pub fn new_fs(name: ~str,source: ~str) 
                   -> Result<Shader,~str>{
-        Shader::new(source,gl::FRAGMENT_SHADER)   
+        Shader::new(name,source,gl::FRAGMENT_SHADER)   
     }
-    pub fn new_cs(source: ~str) 
+    pub fn new_cs(name: ~str,source: ~str) 
                   -> Result<Shader,~str>{
-        Shader::new(source,gl::FRAGMENT_SHADER)   
+        Shader::new(name,source,gl::FRAGMENT_SHADER)   
     }
-    pub fn new_gs(source: ~str) 
+    pub fn new_gs(name: ~str,source: ~str) 
                   -> Result<Shader,~str>{
-        Shader::new(source,gl::FRAGMENT_SHADER)   
+        Shader::new(name,source,gl::FRAGMENT_SHADER)   
     }
-    pub fn new_ts(source: ~str) 
+    pub fn new_ts(name: ~str,source: ~str) 
                   -> Result<Shader,~str>{
-        Shader::new(source,gl::FRAGMENT_SHADER)   
+        Shader::new(name,source,gl::FRAGMENT_SHADER)   
     }
 }
 
