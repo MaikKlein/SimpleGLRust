@@ -1,0 +1,16 @@
+[package]
+
+name = "SimpleGL"
+version = "0.1.0"
+authors = [
+    "MaikKlein",
+]
+
+
+[lib]
+name = "SimpleGL"
+path = "src/lib.rs"
+
+
+[dependencies.gl]
+git = "https://github.com/bjz/gl-rs"

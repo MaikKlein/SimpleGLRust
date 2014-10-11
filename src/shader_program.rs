@@ -1,6 +1,6 @@
-extern mod gl;
+extern crate gl;
 
-struct ShaderProgram<'self>{
+struct ShaderProgram{
     handle: ::handle::Handle
 }
 impl ShaderProgram {
@@ -8,48 +8,50 @@ impl ShaderProgram {
         gl::LinkProgram(self.handle.get());
     }
     pub fn use_program(&self) {
-        gl::UseProgram(self.handle.get());   
+        gl::UseProgram(self.handle.get());
     }
     pub fn bind_frag_location(&self,
                               location: gl::types::GLuint,
-                              name: ~str){
-        do name.with_c_str |ptr|{
-            unsafe {
-                gl::BindFragDataLocation(self.handle.get(), 
-                                         location, 
-                                         ptr)
-            };
-        }
+                              name: String){
+        name.with_c_str(
+            |ptr|{
+                unsafe {
+                    gl::BindFragDataLocation(self.handle.get(),
+                                             location,
+                                             ptr)
+                };
+            }
+            )
     }
-    pub fn set_uniform1f(&self, name: ~str, value: gl::types::GLfloat) {
-        do name.with_c_str |ptr|{
+    pub fn set_uniform1f(&self, name: String, value: gl::types::GLfloat) {
+        name.with_c_str( |ptr|{
             unsafe {
                 let location = gl::GetUniformLocation(self.handle.get(), ptr);
                 gl::Uniform1f(location, value);
             }
         }
-
+                          )
     }
-    pub fn new(shaders: &[&::shader::Shader]) -> Result<ShaderProgram,~str>{
-        
+    pub fn new(shaders: &[&::shader::Shader]) -> Result<ShaderProgram,String>{
         let sp = ShaderProgram {handle: ::handle::Handle::new(gl::CreateProgram())};
         for s in shaders.iter(){
             gl::AttachShader(sp.handle.get(), s.handle.get());
         }
         sp.link();
 
-        let status = gl::FALSE as gl::types::GLint;
-        unsafe { gl::GetProgramiv(sp.handle.get(), gl::LINK_STATUS, &status) };
+        let mut status = gl::FALSE as gl::types::GLint;
+        unsafe { gl::GetProgramiv(sp.handle.get(), gl::LINK_STATUS, &mut status) };
         if status != (gl::TRUE as gl::types::GLint) {
             unsafe {
-                let len: gl::types::GLint = 0;
-                gl::GetProgramiv(sp.handle.get(), gl::INFO_LOG_LENGTH, &len);
-                 
-                let buf = ::std::vec::from_elem(len as uint, 0u8);
-                gl::GetProgramInfoLog(sp.handle.get(), len, ::std::ptr::null(),
-                ::std::vec::raw::to_ptr(buf) as *gl::types::GLchar);
-                 
-                return Err(::std::str::raw::from_bytes(buf));
+                let mut len: gl::types::GLint = 0;
+                gl::GetProgramiv(sp.handle.get(), gl::INFO_LOG_LENGTH, &mut len);
+
+                let mut buf = Vec::from_elem(len as uint, 0u8);
+                gl::GetProgramInfoLog(sp.handle.get(), len, ::std::ptr::null_mut(),
+                                      buf.as_mut_ptr() as *mut i8);
+
+                let s: String = String::from_utf8(buf).unwrap();
+                return Err(s);
             }
         }
         else {
@@ -57,18 +59,19 @@ impl ShaderProgram {
         }
     }
     pub fn get_attrib_location(&self,
-                               name:&str) 
+                               name:&str)
                                -> gl::types::GLuint{
-            do name.with_c_str |ptr|{
-            unsafe {gl::GetAttribLocation(self.handle.get(), 
-                                          ptr) as gl::types::GLuint
-            }
-        }
-    }
+                                   name.with_c_str( |ptr|{
+                                       unsafe {gl::GetAttribLocation(self.handle.get(),
+                                                                     ptr) as gl::types::GLuint
+                                       }
+                                   }
+                                                     )
+                               }
 }
 
 impl Drop for ShaderProgram {
-    fn drop(&self) {
+    fn drop(&mut self) {
         gl::DeleteProgram(self.handle.get());
     }
 }

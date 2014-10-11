@@ -1,0 +1,2 @@
+/home/maik/projects/SimpleGLRust/target/deps/libxml-7318f524c11b08da.rlib: src/lib.rs src/macros.rs src/common.rs src/namespace.rs src/reader/mod.rs src/reader/lexer.rs src/reader/parser.rs src/reader/config.rs src/reader/events.rs src/writer/mod.rs src/writer/emitter.rs src/writer/config.rs src/writer/events.rs
+

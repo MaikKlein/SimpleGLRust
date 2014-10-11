@@ -1,14 +1,14 @@
-extern mod gl;
+extern crate gl;
 
 pub struct Handle{
-    priv handle: gl::types::GLuint
+    handle: gl::types::GLuint
 }
 impl Handle {
     pub fn get(&self) -> gl::types::GLuint {
         self.handle
     }
-    pub fn new(handle: gl::types::GLuint) 
+    pub fn new(handle: gl::types::GLuint)
                -> Handle {
-        Handle {handle: handle }
-    }
+                   Handle {handle: handle }
+               }
 }
