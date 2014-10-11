@@ -1,6 +1,0 @@
-[submodule "submodules/glfw-rs"]
-	path = submodules/glfw-rs
-	url = https://github.com/bjz/glfw-rs.git
-[submodule "submodules/gl-rs"]
-	path = submodules/gl-rs
-	url = https://github.com/bjz/gl-rs
