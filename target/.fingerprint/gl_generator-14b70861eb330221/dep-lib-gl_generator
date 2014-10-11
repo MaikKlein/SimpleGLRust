@@ -1,2 +1,0 @@
-/home/maik/projects/SimpleGLRust/target/deps/libgl_generator-14b70861eb330221.so: lib.rs generators/mod.rs generators/ty.rs generators/global_gen.rs generators/static_gen.rs generators/struct_gen.rs registry.rs
-
