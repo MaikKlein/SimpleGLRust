@@ -5,3 +5,5 @@ bin
 lib
 gitgnore
 *.tags
+Cargo.lock
+target/
